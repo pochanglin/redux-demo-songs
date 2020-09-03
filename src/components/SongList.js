@@ -1,15 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { selectSong } from '../actions';
 
 class SongList extends React.Component{
     
     renderList(){
-        const { songs } = this.props;
+        const { songs, selectSong } = this.props;
         return songs.map((song) => {
             return (
                 <div className="item" key={song.title}>
                     <div className="right floated content">
-                        <button className="ui button primary">
+                        <button 
+                            className="ui button primary"
+                            onClick={ () => selectSong(song) }>
                             Select
                         </button>
                     </div>
@@ -32,4 +35,6 @@ const mapStateToProp = (state) => {
     return { songs: state.songs };
 }
 
-export default connect(mapStateToProp)(SongList);
+export default connect(mapStateToProp,{
+    selectSong
+})(SongList);
